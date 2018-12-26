@@ -9,20 +9,19 @@ import (
 
 type Parser struct {
 	Lexer *lexer.Lexer
-	Hash  ast.Hash // rolling hash
 }
 
 func NewParser(l *lexer.Lexer) *Parser {
-	return &Parser{Lexer: l, Hash: 0}
+	return &Parser{Lexer: l}
 }
 
 func (p *Parser) Parse() ast.Json {
 	tok := p.Lexer.NewToken()
 	switch tok.Type {
 	case token.STRING:
-		return &ast.String{tok, string(tok.Lit)}
+		return &ast.String{string(tok.Lit)}
 	case token.INTEGER:
-		return &ast.Integer{tok, string(tok.Lit)}
+		return &ast.Integer{string(tok.Lit)}
 	case token.LBRACE:
 		return parseObject(p)
 	case token.LBRACKET:
