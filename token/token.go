@@ -5,18 +5,11 @@ import "fmt"
 type Token struct {
 	Type
 	Lit
-	Pos
 }
 
 type Type string
 
 type Lit []rune
-
-type Pos struct {
-	Offset int
-	Line   int
-	Column int
-}
 
 // Types
 const (
@@ -30,6 +23,8 @@ const (
 	RBRACKET = "RBRACKET"
 	STRING   = "STRING"
 	INTEGER  = "INTEGER"
+	BOOLEAN  = "BOOLEAN"
+	NULL     = "NULL"
 )
 
 func NewToken(typ Type, lit string) Token {

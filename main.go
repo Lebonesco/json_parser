@@ -2,8 +2,9 @@ package main
 
 import (
 	"encoding/json"
-
+	"fmt"
 	"github.com/Lebonesco/json_parser/lexer"
+	"github.com/Lebonesco/json_parser/parser"
 	"io/ioutil"
 	"os"
 	"path/filepath"
@@ -27,10 +28,9 @@ func main() {
 	}
 
 	l := lexer.NewLexer(data)
-	for {
-		token := l.NewToken()
-		if string(token.Lit) == "" { // end
-			return
-		}
-	}
+	p := parser.NewParser(l)
+
+	ast := p.Parse()
+	js, _ := json.MarshalIndent(ast, "", "    ")
+	fmt.Println(string(js))
 }

@@ -1,7 +1,6 @@
 package lexer
 
 import (
-	_ "fmt"
 	"github.com/Lebonesco/json_parser/token"
 	"unicode"
 )
@@ -59,6 +58,17 @@ func (l *Lexer) NewToken() token.Token {
 	}
 
 	l.readChar()
+	return tok
+}
+
+func (l *Lexer) PeakToken() token.Token {
+	start := l.start
+	end := l.end
+	tok := l.NewToken()
+
+	l.start = start
+	l.end = end
+	l.char = l.input[l.end-1]
 	return tok
 }
 
